@@ -4,8 +4,8 @@
   "description": "Hank Aaron Runs Batted In",
   "scripts": {
     "deploy": "npm run zip && npm run upload",
-    "upload": "aws lambda update-function-code --function-name 'HankAaronRBIs' --7z-file fileb://../index.zip",
-    "zip": "7z -r ../index.zip . -x 'package.json' -x '*.git*' -x '*.DS_Store'"
+    "upload": "aws lambda update-function-code --function-name 'HankAaronRBIs' --zip-file fileb://index.zip",
+    "zip": "7z a -r index.zip -x!*.git"
   },
   "dependencies": {
     "alexa-sdk": "^1.0.0"

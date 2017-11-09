@@ -71,7 +71,7 @@ const handlers = {
     },
     'YearIntent': function () {
        console.log(JSON.stringify(this.event.request));
-        const yearSlot = this.event.request.intent.slots.Year;
+        const yearSlot = this.event.request.intent.slots.Season;
         let yearName;
         if (yearSlot && yearSlot.value) {
             yearName = parseInt(yearSlot.value);
@@ -91,7 +91,7 @@ const handlers = {
             this.attributes.speechOutput = stats;
             this.attributes.repromptSpeech = this.t('STATS_REPEAT_MESSAGE');
 
-            this.response.speak(stats).listen(this.attributes.repromptSpeech);
+            this.response.speak(stats);
             this.response.cardRenderer(cardTitle, stats);
             this.emit(':responseReady');
         } else {

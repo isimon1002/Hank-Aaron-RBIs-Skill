@@ -1,0 +1,71 @@
+{
+  "languageModel": {
+    "types": [
+      {
+        "name": "LIST_OF_ITEMS",
+        "values": [
+          {
+            "id": null,
+            "name": {
+              "value": "1970",
+              "synonyms": []
+            }
+          },
+          {
+            "id": null,
+            "name": {
+              "value": "nineteenseventy",
+              "synonyms": []
+            }
+          },
+          {
+            "id": null,
+            "name": {
+              "value": "1969",
+              "synonyms": []
+            }
+          },
+          {
+            "id": null,
+            "name": {
+              "value": "1968",
+              "synonyms": []
+            }
+          }
+        ]
+      }
+    ],
+    "intents": [
+      {
+        "name": "AMAZON.CancelIntent",
+        "samples": []
+      },
+      {
+        "name": "AMAZON.HelpIntent",
+        "samples": []
+      },
+      {
+        "name": "AMAZON.StopIntent",
+        "samples": [
+          "exit"
+        ]
+      },
+      {
+        "name": "RecipeIntent",
+        "samples": [
+          "{Item}",
+          "How many RBIs did Hank Aaron hit during the {Item} season",
+          "How many runs batted in did Hank Aaron hit during the {Item} season",
+          "{Item}  seasin"
+        ],
+        "slots": [
+          {
+            "name": "Item",
+            "type": "LIST_OF_ITEMS"
+          }
+        ]
+      }
+    ],
+    "invocationName": "hank aaron runs batted in"
+  }
+}
