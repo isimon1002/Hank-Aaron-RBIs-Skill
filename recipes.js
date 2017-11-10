@@ -26,6 +26,7 @@ module.exports = {
       '1974': 'In 1974 Hank Aaron had 69 runs batted in.',
       '1975': 'In 1975 Hank Aaron had 60 runs batted in.',
       '1976': 'In 1976 Hank Aaron had 35 runs batted in.',
+      'nineteenseventyfive': 'In 1975 Hank Aaron had 60 runs batted in.',
       },
     'RECIPE_EN_US': {
       '1954': 'In 1954 Hank Aaron had 69 runs batted in.',
@@ -51,5 +52,6 @@ module.exports = {
       '1974': 'In 1974 Hank Aaron had 69 runs batted in.',
       '1975': 'In 1975 Hank Aaron had 60 runs batted in.',
       '1976': 'In 1976 Hank Aaron had 35 runs batted in.',
+      'nineteenseventyfive': 'In 1975 Hank Aaron had 60 runs batted in.',
       }
 };

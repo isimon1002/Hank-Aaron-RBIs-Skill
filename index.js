@@ -11,14 +11,14 @@
 'use strict';
 
 const Alexa = require('alexa-sdk');
-const stats = require('./stats');
+const recipes = require('./recipes');
 
-const APP_ID = 'amzn1.ask.skill.8808e84d-e31f-464a-8d50-bd4cd5cda086'; // TODO replace with your app ID (OPTIONAL).
+const APP_ID = undefined; // TODO replace with your app ID (OPTIONAL).
 
 const languageStrings = {
     'en': {
         translation: {
-            STATS: stats.STATS_EN_US,
+            RECIPES: recipes.RECIPE_EN_US,
             // TODO: Update these messages to customize.
             SKILL_NAME: 'Hank Aaron Runs Batted In',
             WELCOME_MESSAGE: "Welcome to Hank Aaron Runs batted in. Hank Aaron holds the major league baseball record for runs batted in with 2297 over his 23 year career from 1954 through 1976.  Pick a year and find out how many runs batted in Hank Aaron had that season.",
@@ -36,14 +36,14 @@ const languageStrings = {
     },
     'en-US': {
         translation: {
-            STATS: stats.STATS_EN_US,
-            SKILL_NAME: 'Hank Aaron Runs batted in',
+            RECIPES: recipes.RECIPE_EN_US,
+            SKILL_NAME: 'Hank Aaron runs batted in',
         },
     },
     'en-GB': {
         translation: {
-            STATS: stats.STATS_EN_GB,
-            SKILL_NAME: 'Hank Aaron Runs Batted in',
+            RECIPES: recipes.RECIPE_EN_GB,
+            SKILL_NAME: 'Hank Aaron runs batted in',
         },
     },
 };
@@ -69,39 +69,33 @@ const handlers = {
         this.response.speak(this.attributes.speechOutput).listen(this.attributes.repromptSpeech);
         this.emit(':responseReady');
     },
-    'YearIntent': function () {
-       console.log(JSON.stringify(this.event.request));
-        const yearSlot = this.event.request.intent.slots.Season;
-        let yearName;
-        if (yearSlot && yearSlot.value) {
-            yearName = parseInt(yearSlot.value);
-            console.log(yearName);
-            console.log(yearSlot)
-            console.log(yearSlot.value)
+    'RecipeIntent': function () {
+        console.log(JSON.stringify(this.event.request));
+        const itemSlot = this.event.request.intent.slots.Item;
+        let itemName;
+        if (itemSlot && itemSlot.value) {
+            itemName = itemSlot.value;
         }
-        console.log(yearName);
-        console.log(yearSlot)
-        console.log(yearSlot.value)
 
-        const cardTitle = this.t('DISPLAY_CARD_TITLE', this.t('SKILL_NAME'), yearName);
-        const myStats = this.t('STATS');
-        const stats = myStats[yearName];
+        const cardTitle = this.t('DISPLAY_CARD_TITLE', this.t('SKILL_NAME'), itemName);
+        const myRecipes = this.t('RECIPES');
+        const recipe = myRecipes[itemName];
 
-        if (stats) {
-            this.attributes.speechOutput = stats;
+        if (recipe) {
+            this.attributes.speechOutput = recipe;
             this.attributes.repromptSpeech = this.t('STATS_REPEAT_MESSAGE');
 
-            this.response.speak(stats);
-            this.response.cardRenderer(cardTitle, stats);
+            this.response.speak(recipe);
+            this.response.cardRenderer(cardTitle, recipe);
             this.emit(':responseReady');
         } else {
             let speechOutput = this.t('STATS_NOT_FOUND_MESSAGE');
             const repromptSpeech = this.t('STATS_NOT_FOUND_REPROMPT');
-            if (yearName) {
-                speechOutput = this.t('STATS_NOT_FOUND_WITH_ITEM_NAME', yearName);
+            if (itemName) {
+                speechOutput = this.t('STATS_NOT_FOUND_WITH_ITEM_NAME', itemName);
             } else {
                 speechOutput = this.t('STATS_NOT_FOUND_WITHOUT_ITEM_NAME');
-            };
+            }
 
             this.attributes.speechOutput = speechOutput;
             this.attributes.repromptSpeech = repromptSpeech;
@@ -110,6 +104,10 @@ const handlers = {
             this.emit(':responseReady');
         }
     },
+    // 'ExitIntent': function () {
+    //     this.response.speak("Goodbye");
+    //     this.emit(':responseReady');
+    // },
     'AMAZON.HelpIntent': function () {
         this.attributes.speechOutput = this.t('HELP_MESSAGE');
         this.attributes.repromptSpeech = this.t('HELP_REPROMPT');
@@ -125,4 +123,10 @@ const handlers = {
         this.response.speak("Goodbye");
         this.emit(':responseReady');
     },
-  };
+    'SessionEndedRequest': function () {
+        console.log("SESSIONENDEDREQUEST");
+        //this.attributes['endedSessionCount'] += 1;
+        this.response.speak("Goodbye!");
+        this.emit(':responseReady');
+    }
+};
